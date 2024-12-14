@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+   
+            
+        }
+body{
+background-color: white;
+}
+header {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+      
+     .container {
+        margin-top: 20px;
+            background-color: white;
+            width: 70%;
+            max-width: 350px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-left: 280px;
+        }
+
+        .form-title {
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .checkbox-group {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styling */
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 100%;
+            }
+        }
+    </style>
+
+
+
+    <div class="container">
+        <h2 class="form-title">Sell_form</h2>
+
+        <form action="{% url 'sellform' %}" method="post" enctype="multipart/form-data">
+            <!-- Full Name -->
+             {% csrf_token %}
+             {% for form in aj %} 
+            <div class="input-group">
+                <label for="fullname">{{form.label_tag}}</label>
+                {{form}}
+                
+                <div class="error" id="fullname-error"></div>
+            </div>
+            {% endfor %} 
+            {% if messages %}
+           
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+ 
+        {% endif %}
+            <input type="submit" class="submit-btn">
+
+            <p class="login-link">If you are not Registared! <a href="{% url 'Registration' %}">Registration</a></p>
+        </form>
+    </div>
+    {% endblock %}
