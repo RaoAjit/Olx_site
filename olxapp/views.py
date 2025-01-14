@@ -125,9 +125,9 @@ def ordered(request):
             address=request.POST['address']
             mobile=request.POST['phone']
             payment=request.POST['payment']
-            id=request.POST['sessionToken']
-            pimage=Product.objects.get(id=id)
-            fm=delivery(user=request.user,name=name,email=email,address=address,mobile=mobile,payment=payment,orderid=id)
+            myid=request.POST['idname']
+            pimage=Product.objects.get(id=myid)
+            fm=delivery(user=request.user,name=name,email=email,address=address,mobile=mobile,payment=payment,orderid=pimage)
             if fm:
               fm.save()
               return redirect(checkout_session)
@@ -137,7 +137,7 @@ def ordered(request):
          id=request.POST['sessionToken']
          print(name,email,address,mobile,payment,id)
          pimage=Product.objects.get(id=id)
-         fm=delivery(user=request.user,name=name,email=email,address=address,mobile=mobile,payment=payment,orderid=id)
+         fm=delivery(user=request.user,name=name,email=email,address=address,mobile=mobile,payment=payment,orderid=pimage)
          if fm:
             fm.save()
             return render(request,'odconformed.html')
@@ -217,9 +217,6 @@ def success(request):
 def cancel(request):
     return render(request,'cancel.html')
 
-
-
-   
 
 
     
