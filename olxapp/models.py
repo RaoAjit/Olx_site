@@ -21,7 +21,6 @@ class Product(models.Model):
     address = models.CharField(max_length=255)
     contact_no=models.IntegerField(max_length=10)
     type=models.CharField(choices=type,max_length=20)
-      # Address or location related to the product
 
     def __str__(self):
         return str(self.id)
