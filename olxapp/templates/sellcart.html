@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* Ensure content fills the full height */
+}
+
+.container {
+    display: flex;
+    flex-grow: 1; /* Allow the container to take up all available vertical space */
+    width: 100%;
+}
+
+.left-column{
+    width: 900px; /* Fixed width for both columns */
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-top: 40px;
+    width: 45%;
+    margin-left: 50px;
+    border: 1px solid #ccc;
+    flex-grow: 1; 
+}
+.right-column {
+    width: 900px; /* Fixed width for both columns */
+    background-color: #f0f0f0;
+    padding: 20px;
+    width: 45%;
+    margin-left: 20px;
+    margin-top: 40px;
+    margin-right: 50px;
+    border: 1px solid #ccc;
+    flex-grow: 1; /* Allow columns to grow vertically */
+}
+
+
+
+h2 {
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+h1 {
+            text-align: center;
+            color: #333;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+        .cart-item .product-details {
+            flex-grow: 1;
+        }
+        .cart-item .product-details p {
+            margin: 5px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .cart-item .product-details span {
+            font-weight: bold;
+        }
+        .contact-info {
+            margin-top: 20px;
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+    </style>
+    <div class="container">
+        <div class="left-column">
+            {% for x in mysellproducts %}
+            <div>
+                <h1>Selling Cart</h1>
+                <!-- Cart Item -->
+                <div class="cart-item" style="margin-top: 20px;">
+                    <img src="/media/{{x.image}}" alt="Product Image"> <!-- Replace with actual product image -->
+                    <div class="product-details">
+                        <p><span>Product Name:</span>{{x.name}}</p>
+                        <p><span>Price:</span> {{x.price}}</p>
+                       <span>   <button style='background-color: rgba(214, 21, 21, 0.973); margin-left: 20px; width: 80px; border-radius: 20%; margin-top: 20px;'><a href="{% url 'deletesellpd' x.id %}">Delete</a></button></span>
+                    </div>
+                </div>
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <p><span>Store Address:</span></p>
+                    {{x.address}}
+               
+                    <p><span>Contact Number:</span></p>
+                    <p>+91{{x.contact_no}}</p>
+                </div>
+                <div style=" background: linear-gradient(135deg, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8), rgba(255, 255, 0, 0.6)); width: auto; height: 30px;"></div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="right-column">
+            {% for x in cartproducts %}
+            <div>
+                <h1>Buycart</h1>
+                <!-- Cart Item -->
+                <div class="cart-item" style="margin-top: 20px;">
+                    <img src="/media/{{x.myid.image}}"  alt="Product Image"> <!-- Replace with actual product image -->
+                    <div class="product-details">
+                        <p><span>Product Name:</span>{{x.myid.name}}</p>
+                        <p><span>Price:</span> ${{x.myid.price}}</p>
+                        <button style='background-color: rgb(15, 197, 15); width: 80px; border-radius: 20%; margin-top: 20px;'><a href="{% url 'buy' x.myid %}">Buy</a></button><span>   <button style='background-color: rgba(214, 21, 21, 0.973); margin-left: 20px; width: 80px; border-radius: 20%; margin-top: 20px;'><a href="{% url 'deletecart' x.myid %}">Delete</a></button></span>
+                    </div>
+                </div>
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <p><span>Store Address:</span></p>
+                    <p>{{x.myid.address}}</p>
+                    <p><span>Contact Number:</span></p>
+                    <p>{{x.myid.contact_no}}</p>
+                </div>
+                <div style=" background: linear-gradient(135deg, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8), rgba(255, 255, 0, 0.6)); width: auto; height: 30px;"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
