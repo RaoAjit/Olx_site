@@ -10,6 +10,7 @@ from django.conf import settings
 from django.views.generic.base import TemplateView
 import stripe
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, get_object_or_404
 
 #stripe.api_key=settings.STRIPE_SECRET_KEY
 
@@ -83,15 +84,17 @@ def sellcart(request):
     myproduct=Product.objects.filter(user=request.user)      
     return render(request,'sellcart.html',{'mysellproducts':myproduct,'cartproducts':cartproducts})
 
-@login_required
-def addcart(request,id):
-    aj=Product.objects.get(id=id)
-    an=Cart(user=request.user,myid=aj)
-    if an:
-        an.save()
-        return redirect('sellcart')
-    else:
-         return HttpResponse(id)
+
+@login_required(login_url='mylogin')  # Redirects to Registration page if not logged in
+def addcart(request, id):
+    # Get the product or return 404 if not found
+    aj = get_object_or_404(Product, id=id)
+    
+    # Add to cart
+    an = Cart(user=request.user, myid=aj)
+    an.save()
+    
+    return redirect('sellcart')
     
 @login_required     
 def deleted(request,id):
@@ -106,7 +109,7 @@ def deletecart(request,id):
         return redirect('sellcart')
 
    
-@login_required
+@login_required(login_url='mylogin')
 def buy(request,id):
     product=Product.objects.filter(id=id)
     return render(request,'customerdetail.html',{'product':product})
