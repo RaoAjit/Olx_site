@@ -129,6 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL='/media/'
 MEDIA_ROOT=BASE_DIR/'media'
 
-
-
-#nnew change i am ajit
+#ksdfpf spokfsf  df
+#jkdflv jkjfk 
