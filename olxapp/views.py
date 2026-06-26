@@ -31,11 +31,14 @@ def Registration(request):
     if request.method =="POST":
             fm=forms.Register(request.POST)
             if fm.is_valid():
+                print(fm)
                 fm.save()
                 messages.success(request,'congragulation')
                 return redirect('mylogin')
             else:
-              return HttpResponse('soory')
+                print('issue')
+                messages.error(request,'invalid registartion details')
+                return render(request,'Registration.html',{'aj':aj})
     return render(request,'Registration.html',{'aj':aj})
 
 def mylogin(request):
@@ -50,8 +53,14 @@ def mylogin(request):
              login(request,aj)
              return redirect('home')
          else:
-             pass
-        
+             messages.error(request,'Username or password in invalid')
+             print('not valid')
+             return render(request,'login.html',{'aj':fm})
+        else:
+             messages.error(request,'Username or password is invalid')
+             return render(request,'login.html',{'aj':fm})
+            
+             
      return render(request,'login.html',{'aj':fm})
 
 
@@ -180,7 +189,8 @@ def search(request):
             if product:
                       return render(request,'searchproduct.html',{'products':product})
             else:
-                return HttpResponse('sotyu')
+                product=Product.objects.all()
+                return render(request,'searchproduct.html',{'products':product})
 
           
 stripe.api_key='sk_test_51QRwkfFAlOtzX52InlvPwvW54gAceit98zj6wXqvfZLd3EklsKZoqbZjISwWL2tK3IJor8TcopmOIZfHbwPDgEMB00fMqV0Md6'

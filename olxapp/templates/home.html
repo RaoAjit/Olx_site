@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
+        .container {
+            width: 100%;
+            padding: 30px 15px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-top: 30px;
+            margin-bottom: 30px;
         }
-   
-        
-    header {
+        header {
         background-color: rgba(0, 0, 0, 0.6);
         color: white;
         padding: 20px;
@@ -19,143 +22,184 @@
         margin-bottom: 20px;
         border-radius: 8px;
     }
-        .container {
-            width: 100%;
-            overflow: hidden;
+      
+
+        .container h2 {
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
         }
+
         .product-slider {
             display: flex;
-            animation: slide-left 20s linear infinite;
+            animation: slide-left 25s linear infinite;
         }
+
+        /* Pause sliding on hover for better user experience */
+        .product-slider:hover {
+            animation-play-state: paused;
+        }
+
         .product {
             flex: 0 0 auto;
-            width: 300px;
-            
+            width: 290px;
             margin: 0 15px;
             background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            border-radius: 12px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
      
-    .product img {
-        width: 100%;
-        height: 200px;
-        border-radius: 15px 15px 0 0;
-        object-fit: cover;
-    }
+        .product img {
+            width: 100%;
+            height: 180px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
 
         .product h3 {
-            margin-top: 15px;
-            font-size: 1.5em;
+            margin-top: 12px;
+            font-size: 1.3em;
             color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .product p {
-            font-size: 1em;
-            color: #777;
-        }
+
         .product-price {
-            font-size: 1.2em;
+            font-size: 1.25em;
+            font-weight: bold;
             color: #e60000;
-            margin-top: 10px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        
+        /* Actions container styling */
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .product-actions form {
+            flex: 1;
+        }
+
+        .product-actions button {
+            width: 100%;
+            padding: 8px 5px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .product-actions button:active {
+            transform: scale(0.97);
+        }
+
+        .btn-cart {
+            background-color: #19c0dd;
+            color: white;
+        }
+
+        .btn-cart:hover {
+            background-color: #139cb4;
+        }
+
+        .btn-buy {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-buy:hover {
+            background-color: #218838;
         }
         
         @keyframes slide-left {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
-        .container {
-    
-        padding: 20px 0;
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-    }
-    .container h2 {
-        font-size: 2.5rem;
-        color: white;
-        margin-bottom: 20px;
-        
-    }
     </style>
 
-    <div class="container" style="margin-top: 40px; ">
-       <h2>Electronics</h2>
-        <div class="product-slider category">
-            <!-- Product 1 -->
+    <div class="container">
+        <h2>Electronics</h2>
+        <div class="product-slider">
             {% for x in electronics %}
             <div class="product">
-                <img src="/media/{{x.image}}" alt="Product 1">
+                <img src="/media/{{x.image}}" alt="{{x.name}}">
                 <h3>{{x.name}}</h3>
-                <div class="anu" style="display: flex; justify-content: space-between;">
-                <div class="product-price">Rs.{{x.price}}</div>
-                <form action="{% url 'addcart' x.id %}" method="get">
-                    {% csrf_token %}
-                    <button style="border-radius: 10px; background-color: rgba(96, 127, 219, 0.973); margin-top: 15px;">Add to cart</button>
+                <div class="product-price">Rs. {{x.price}}</div>
+                
+                <div class="product-actions">
+                    <form action="{% url 'addcart' x.id %}" method="get">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-cart">Add to Cart</button>
                     </form>
                     <form action="{% url 'buy' x.id %}" method="post">
                         {% csrf_token %}
-                    <button style=" margin-top: 15px; border-radius: 10px; background-color: rgb(29, 218, 29)">Buy now</button>
+                        <button type="submit" class="btn-buy">Buy Now</button>
                     </form>
-            </div>
+                </div>
             </div>
             {% endfor %}
-
         </div>
-        <div class="container" style="margin-top: 40px;" >
-            <h2 >Furniture</h2>
-            <div class="product-slider">
-                <!-- Product 1 -->
-                {% for x in furnitures %}
-                <div class="product">
-                    <img src="/media/{{x.image}}" alt="Product 1">
-                    <h3>{{x.name}}</h3>
-                    <div class="anu" style="display: flex; justify-content: space-between;">
-                    <div class="product-price">Rs.{{x.price}}</div>
+    </div>
+
+    <div class="container">
+        <h2>Furniture</h2>
+        <div class="product-slider">
+            {% for x in furnitures %}
+            <div class="product">
+                <img src="/media/{{x.image}}" alt="{{x.name}}">
+                <h3>{{x.name}}</h3>
+                <div class="product-price">Rs. {{x.price}}</div>
+                
+                <div class="product-actions">
                     <form action="{% url 'addcart' x.id %}" method="get">
                         {% csrf_token %}
-                        <button style="border-radius: 10px; background-color: rgba(96, 127, 219, 0.973); margin-top: 15px;">Add to cart</button>
-                        </form>
-                        <form action="{% url 'buy' x.id %}" method="post">
-                            {% csrf_token %}
-                        <button style=" margin-top: 15px; border-radius: 10px; background-color: rgb(29, 218, 29)">Buy now</button>
-                        </form>
+                        <button type="submit" class="btn-cart">Add to Cart</button>
+                    </form>
+                    <form action="{% url 'buy' x.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-buy">Buy Now</button>
+                    </form>
                 </div>
-                </div>
-                {% endfor %}
-    
             </div>
-
-            <div class="container" style="margin-top: 40px;" >
-                <h2 >Veichles</h2>
-                <div class="product-slider">
-                    <!-- Product 1 -->
-                    {% for x in Vehicles %}
-                    <div class="product">
-                        <img src="/media/{{x.image}}" alt="Product 1">
-                        <h3>{{x.name}}</h3>
-                        <div class="anu" style="display: flex; justify-content: space-between;">
-                        <div class="product-price">Rs.{{x.price}}</div>
-                        <form action="{% url 'addcart' x.id %}" method="get">
-                            {% csrf_token %}
-                            <button style="border-radius: 10px; background-color: rgba(96, 127, 219, 0.973); margin-top: 15px;">Add to cart</button>
-                            </form>
-                            <form action="{% url 'buy' x.id %}" method="post">
-                                {% csrf_token %}
-                            <button style=" margin-top: 15px; border-radius: 10px; background-color: rgb(29, 218, 29)">Buy now</button>
-                            </form>
-                    </div>
-                    </div>
-                    {% endfor %}
-        
-                </div>
+            {% endfor %}
+        </div>
     </div>
-    {% endblock %}
 
+    <div class="container">
+        <h2>Vehicles</h2>
+        <div class="product-slider">
+            {% for x in Vehicles %}
+            <div class="product">
+                <img src="/media/{{x.image}}" alt="{{x.name}}">
+                <h3>{{x.name}}</h3>
+                <div class="product-price">Rs. {{x.price}}</div>
+                
+                <div class="product-actions">
+                    <form action="{% url 'addcart' x.id %}" method="get">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-cart">Add to Cart</button>
+                    </form>
+                    <form action="{% url 'buy' x.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-buy">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

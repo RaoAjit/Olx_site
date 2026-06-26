@@ -139,7 +139,13 @@ header {
             </div>
             {% endfor %} 
             <input type="submit" class="submit-btn">
-
+            {% if messages %}
+           
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+ 
+            {% endif %}
             <p class="login-link">Already have an account? <a href="{% url 'mylogin' %}">Login</a></p>
         </form>
     </div>
