@@ -27,19 +27,35 @@ def home(request):
 
 
 def Registration(request):
-    aj=forms.Register()
-    if request.method =="POST":
-            fm=forms.Register(request.POST)
-            if fm.is_valid():
-                print(fm)
-                fm.save()
-                messages.success(request,'congragulation')
-                return redirect('mylogin')
-            else:
-                print('issue')
-                messages.error(request,'invalid registartion details')
-                return render(request,'Registration.html',{'aj':aj})
-    return render(request,'Registration.html',{'aj':aj})
+    aj = forms.Register()
+    
+    if request.method == "POST":
+        fm = forms.Register(request.POST)
+        if fm.is_valid():
+            fm.save()
+            messages.success(request, 'Congratulations!')
+            return redirect('mylogin')
+        else:
+            messages.error(request, 'Invalid registration details.')
+            # Pass 'fm' here instead of 'aj' so errors and old input values persist
+            return render(request, 'Registration.html', {'aj': fm})
+            
+    return render(request, 'Registration.html', {'aj': aj})
+
+'''def Registration(request):
+    if request.method == "POST":
+        form = forms.Register(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Congratulations! Your account was created.')
+            return redirect('mylogin')
+        else:
+            messages.error(request, 'Invalid registration details. Please fix the errors below.')
+    else:
+        form = forms.Register()
+        
+    return render(request, 'Registration.html', {'form': form})'''
+
 
 def mylogin(request):
      fm=AuthenticationForm()

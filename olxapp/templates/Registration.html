@@ -6,53 +6,46 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-   
-            
         }
-body{
-background-color: white;
-}
-header {
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        padding: 20px;
-        width: 100%;
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-        border-radius: 8px;
-    }
-      
-     .container {
-        margin-top: 20px;
+        body {
             background-color: white;
-            width: 70%;
-            max-width: 350px;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .container {
+            margin-top: 20px;
+            background-color: white;
+            width: 100%;
+            max-width: 400px;
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-left: 280px;
+            margin: 40px auto; /* Centers the container cleanly */
         }
-
         .form-title {
             font-size: 26px;
             text-align: center;
             margin-bottom: 20px;
             color: #333;
         }
-
         .input-group {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             position: relative;
         }
-
         label {
             font-size: 14px;
             color: #555;
             display: block;
             margin-bottom: 6px;
         }
-
         input, select, textarea {
             width: 100%;
             padding: 12px;
@@ -61,28 +54,16 @@ header {
             font-size: 14px;
             transition: all 0.3s ease;
         }
-
         input:focus, select:focus, textarea:focus {
             border-color: #4CAF50;
             outline: none;
         }
-
-        .error {
+        .error-text {
             color: red;
             font-size: 12px;
             margin-top: 5px;
+            display: block;
         }
-
-        .checkbox-group {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .checkbox-group input {
-            margin-right: 10px;
-        }
-
         .submit-btn {
             width: 100%;
             padding: 14px;
@@ -93,54 +74,43 @@ header {
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px;
         }
-
         .submit-btn:hover {
             background-color: #45a049;
         }
-
         .login-link {
             text-align: center;
             margin-top: 20px;
         }
-
         .login-link a {
             color: #4CAF50;
             text-decoration: none;
         }
-
         .login-link a:hover {
             text-decoration: underline;
         }
-
-        /* Responsive Styling */
-        @media screen and (max-width: 600px) {
-            .container {
-                padding: 20px;
-                width: 100%;
-            }
-        }
     </style>
-
-
 
     <div class="container">
         <h2 class="form-title">Create Account</h2>
 
         <form action="" method="POST">
-            <!-- Full Name -->
-             {% csrf_token %}
-             {% for form in aj %} 
-            <div class="input-group">
-                <label for="fullname">{{form.label_tag}}</label>
-                {{form}} {{form.errors|striptags}}
-               
-                <div class="error" id="fullname-error"></div>
-            </div>
+            {% csrf_token %}
+            
+            {% for field in aj %} 
+                <div class="input-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    
+                    {% if field.errors %}
+                        <span class="error-text">{{ field.errors|striptags }}</span>
+                    {% endif %}
+                </div>
             {% endfor %} 
-            <input type="submit" class="submit-btn">
-
+            
+            <input type="submit" value="Register" class="submit-btn">
             <p class="login-link">Already have an account? <a href="{% url 'mylogin' %}">Login</a></p>
         </form>
     </div>
-    {% endblock %}
+{% endblock %}
