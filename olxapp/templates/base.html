@@ -1,162 +1,208 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>OLX Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
  
-  <style>
-      * {
+    <style>
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
-    body{
-        width: 100%;
-        background: linear-gradient(135deg, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8), rgba(255, 255, 0, 0.6));
-        min-height: 350px;
-    }
 
-   header {
-    background-color: #19c0dd;
-    padding: 10px 0;
-}
+        /* Flexbox Layout to push footer to the bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8), rgba(255, 255, 0, 0.6));
+            background-attachment: fixed;
+            padding-top: 60px; /* Prevents content from hiding behind the fixed header */
+        }
 
+        /* Fixed Header */
+        header {
+            background-color: #19c0dd;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    height: 40px;
-}
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 30px;
+        }
 
-.navbar .logo a {
-    font-size: 30px;
-    color: white;
-    font-weight: bold;
-}
+        .navbar .logo a {
+            font-size: 28px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
 
-.search-bar input {
-    padding: 8px;
-    width: 300px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
+        /* Navbar Forms & Search */
+        .navbar form {
+            display: flex;
+            align-items: center;
+        }
 
-.search-bar button {
-    padding: 8px 15px;
-    background-color: #ffd100;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-} 
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
 
-.user-actions a {
-    color: white;
-    margin-left: 20px;
-    font-weight: bold;
-}
+        .search-bar input {
+            padding: 8px 12px;
+            width: 300px;
+            border-radius: 4px 0 0 4px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
 
-.user-actions a:hover {
-    text-decoration: underline;
-}
-footer {
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
+        .search-bar button {
+            padding: 8px 15px;
+            background-color: #ffd100;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
 
-.footer-links a {
-    color: white;
-    margin: 0 15px;
-    font-size: 16px;
-}
+        .search-bar button:hover {
+            background-color: #e6bc00;
+        }
 
-.footer-links a:hover {
-    text-decoration: underline;
-}
+        /* User Actions & Buttons */
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.social-media a {
-    color: white;
-    margin: 0 10px;
-    font-size: 18px;
-}
-* Footer */
-footer {
-    background-color: #333;
-    color: white;
+        .user-actions a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    text-align: center;
-    
-}
+        .user-actions button {
+            background-color: black;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
 
-.footer-links a {
-    color: white;
-    margin: 0 15px;
-    font-size: 16px;
-    
-}
+        .user-actions button:hover {
+            transform: scale(1.05);
+        }
 
-.footer-links a:hover {
-    text-decoration: underline;
-}
+        .user-actions select {
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 10px;
+            cursor: pointer;
+            outline: none;
+        }
 
-.social-media a {
-    color: white;
-    margin: 0 10px;
-    font-size: 18px;
-}
+        /* Main Content Container */
+        .main-content {
+            flex: 1; /* Generates enough space to push footer down */
+            padding: 20px;
+        }
 
+        /* Fixed/Sticky Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            margin-top: auto; /* Ensures it stays at the absolute bottom */
+        }
 
-  </style>
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover, .user-actions a:hover {
+            text-decoration: underline;
+        }
+
+        .social-media a {
+            color: #19c0dd;
+            margin: 0 10px;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+
  <header>
     <nav class="navbar">
         <div class="logo">
             <a href="/">OLX</a>
         </div>
+        
         <form action="{% url 'search' %}" method="post">
             {% csrf_token %}
-        <div class="search-bar" style="display: flex; justify-content: left;">
-            <input type="text" placeholder="Search for items..." name="search">
-            <button style="margin-left: 5px;">Search</button>
-        </div>
-    </form>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for items..." name="search">
+                <button type="submit" style="margin-left: 10px;">Search</button>
+            </div>
+        </form>
+
         <div class="user-actions">
             {% if request.user.is_authenticated %}
-            
-                
-                <select id="dropdown" name="dropdown" style="background-color: black; height: 40px; border-radius: 10px; color: white; width: 80px;" onchange="window.location.href=this.value;">
-                    <option value="option1">{{request.user}}</option>
+                <select id="dropdown" name="dropdown" onchange="window.location.href=this.value;">
+                    <option value="">{{ request.user }}</option>
                     <option value="{% url 'home' %}">Home</option>
                     <option value="{% url 'sellcart' %}">Cart</option>
                     <option value="{% url 'orders' %}">Orders</option>
                     <option value="{% url 'mylogout' %}">Logout</option>
-                    
                 </select>
-
-     
-            <button style="background-color: black;height: 40px; border-radius: 10px; width: 60px;"><a href="{% url 'sellform' %}">Sell  </a></button>
-        </div>
+                <button><a href="{% url 'sellform' %}">Sell</a></button>
             {% else %}
-            <button style="background-color: black; height: 27px; border-radius: 10px;"><a href="{% url 'mylogin' %}">Login</a></button>
-            <button style="background-color: black; height: 27px; border-radius: 10px;"><a href="{% url 'Registration' %}">Sign Up</a></button>
-            <button style="background-color: black; height: 27px; border-radius: 10px;"><a href="{% url 'mylogin' %}">Sell</a></button>
+                <button><a href="{% url 'mylogin' %}">Login</a></button>
+                <button><a href="{% url 'Registration' %}">Sign Up</a></button>
+                <button><a href="{% url 'mylogin' %}">Sell</a></button>
+            {% endif %}
         </div>
-        {% endif %}
     </nav>
  </header> 
- <div style='background: linear-gradient(135deg, rgba(255, 0, 150, 0.8), rgba(0, 204, 255, 0.8), rgba(255, 255, 0, 0.6));'></div>  
-{% block content %}
-{% endblock %}
-</div> 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ <main class="main-content">
+    {% block content %}
+    {% endblock %}
+ </main> 
+
 <footer>
     <div class="footer-links">
         <a href="/about">About Us</a>
@@ -170,6 +216,6 @@ footer {
     </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

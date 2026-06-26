@@ -68,6 +68,7 @@ footer {
     color: white;
     padding: 20px;
     text-align: center;
+    margin
 }
 
 .footer-links a {
@@ -89,14 +90,15 @@ footer {
 footer {
     background-color: #333;
     color: white;
-
+    margin-top: 20px;
     text-align: center;
     
 }
 
 .footer-links a {
     color: white;
-    margin: 0 15px;
+    margin: 0px 15px ;
+    
     font-size: 16px;
     
 }
@@ -118,13 +120,14 @@ footer {
  <header>
     <nav class="navbar">
         <div class="logo">
-            <a href="/">OLX</a>
+            <a href="/">OLXxx</a>
         </div>
         <form action="{% url 'search' %}" method="post">
             {% csrf_token %}
         <div class="search-bar" style="display: flex; justify-content: left;">
             <input type="text" placeholder="Search for items..." name="search">
             <button style="margin-left: 5px;">Search</button>
+             <button style="margin-left: 5px;">Search</button>
         </div>
     </form>
         <div class="user-actions">
@@ -157,7 +160,7 @@ footer {
 </div> 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<footer>
+<footer style='background: linear-gradient(135deg, rgba(255, 0, 150, 0.8)'>
     <div class="footer-links">
         <a href="/about">About Us</a>
         <a href="/contact">Contact</a>
@@ -166,7 +169,7 @@ footer {
     <div class="social-media">
         <a href="#">Facebook</a>
         <a href="#">Instagram</a>
-        <a href="#">Twitter</a>
+        <a href="#">Twitterrr</a>
     </div>
 </footer>
 
