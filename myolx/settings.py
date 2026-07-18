@@ -27,11 +27,17 @@ SECRET_KEY = 'django-insecure-p1)kfgh3f8!%x!)=-guke!&y=zwm5rkcps%^#236swt*vt=3me
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "olx-site.vercel.app",
-    "localhost",
+    "olx-site-ten.vercel.app",
+    "olx-site-git-main-raoajits-projects.vercel.app",
+    ".vercel.app",
     "127.0.0.1",
+    "localhost",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://olx-site-ten.vercel.app",
+    "https://olx-site-git-main-raoajits-projects.vercel.app",
+]
 
 # Application definition
 
