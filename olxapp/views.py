@@ -21,7 +21,6 @@ def home(request):
     Vehicles=Product.objects.filter(type='vehicles')
     #vehicles=Product.objects.get(type='Vehicles')
     #house=Product.objects.get(type='Vehicles')    
-        
     return render(request,'home.html',{'furnitures': furniture,'electronics': electronics,'Vehicles':Vehicles})
  
 

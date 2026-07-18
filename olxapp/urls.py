@@ -25,4 +25,6 @@ urlpatterns = [
     path('success',views.success,name='success'),
     path('cancel',views.cancel,name='cancel'),
     
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
