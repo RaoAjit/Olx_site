@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-p1)kfgh3f8!%x!)=-guke!&y=zwm5rkcps%^#236swt*vt=3me
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "olxsite.vercel.app",
+    "olx-site.vercel.app",
     "localhost",
     "127.0.0.1",
 ]
